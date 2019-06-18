@@ -7,7 +7,7 @@ This project has been inspired by https://github.com/Ardesco/Selenium-Maven-Temp
 This is a Selenium Framework that uses Maven, Selenium Webdriver , TestNG, Extent Reporting and Pageobject design. This readme aims to take a technical deepdive to provide a better understanding of what is under the hood.
 
 
-![alt text](content/extent-report.png "Extent Report")
+![Extent Report](content/extent-report.png "Extent Report")
 
 ### Pre-requisites
 You will need mvn and Java. At the time of developing, I am using `mvn version: 3.6.1` and `java jdk version: openjdk-11.0.1.jdk`
@@ -93,3 +93,7 @@ You have probably got outdated driver binaries, by default they are not overwrit
 
 - `mvn clean verify -Doverwrite.binaries=true`
 - Delete the `selenium_standalone_binaries` folder in your resources directory
+
+### How to setup your development environment ?
+
+![Intellij desktop - java development](content/intellij-desktop.png "Intellij desktop - java development")
