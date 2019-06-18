@@ -98,7 +98,7 @@ public class GoogleExampleIT extends DriverBase {
     @Test()
     public void googleRandomSearchExample() throws Exception {
         // Test name
-        logger = extent.createTest("test for cheese ");
+        logger = extent.createTest("test for cheese in google search");
 
         // Create a new WebDriver instance
         // Notice that the remainder of the code relies on the interface,
@@ -137,7 +137,7 @@ public class GoogleExampleIT extends DriverBase {
     @Test
     public void googleSearchMilkExample() throws Exception {
         // Test name
-        logger = extent.createTest("To assert for milk");
+        logger = extent.createTest("To assert for milk in google search");
 
         // Create a new WebDriver instance
         // Notice that the remainder of the code relies on the interface,
