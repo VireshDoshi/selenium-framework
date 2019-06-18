@@ -6,6 +6,9 @@ This project has been inspired by https://github.com/Ardesco/Selenium-Maven-Temp
 ### About
 This is a Selenium Framework that uses Maven, Selenium Webdriver , TestNG, Extent Reporting and Pageobject design. This readme aims to take a technical deepdive to provide a better understanding of what is under the hood.
 
+
+![alt text](content/extent-report.png "Extent Report")
+
 ### Pre-requisites
 You will need mvn and Java. At the time of developing, I am using `mvn version: 3.6.1` and `java jdk version: openjdk-11.0.1.jdk`
 
@@ -17,10 +20,16 @@ ___
 ### How to execute?
 1. Open a terminal prompt
 2. Clone this project `git clone project_url`
-3. type `cd selenium-devops360-framework` 
+3. type `cd selenium-devops360-framework`
 4. `mvn test verify -Dbrowser=chrome`
+5. Goto target directory and open up the nicely formatted report in a browser `/reports/STMExtentReport.html`
 
 All dependencies will be downloaded and two examples will run headless and produce a test report with the results and screenshots.
+
+### What does the report show?
+- The report will show the output of all tests executed as part of testNG. This means that a test with the annotation `@test`
+- A thumbprint to a screenshot will appear in both headless and non-headless mode.
+-
 
 ### What should I know?
 
