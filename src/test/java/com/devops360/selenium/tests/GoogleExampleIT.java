@@ -8,10 +8,12 @@ import com.aventstack.extentreports.markuputils.MarkupHelper;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.devops360.selenium.DriverBase;
 import com.devops360.selenium.page_objects.GoogleHomePage;
+import com.devops360.selenium.page_objects.MobileHomePage;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.ITestResult;
@@ -36,6 +38,7 @@ public class GoogleExampleIT extends DriverBase {
     private ExpectedCondition<Boolean> pageTitleStartsWith(final String searchString) {
         return driver -> driver.getTitle().toLowerCase().startsWith(searchString.toLowerCase());
     }
+
     public WebDriver driver;
     public ExtentHtmlReporter htmlReporter;
     public ExtentReports extent;
@@ -79,13 +82,14 @@ public class GoogleExampleIT extends DriverBase {
     @BeforeTest
     public void startReport() {
         String reportDirectory = System.getProperty("reportDirectory", "target/reports");
-        htmlReporter = new ExtentHtmlReporter(reportDirectory + "/STMExtentReport.html");
+        htmlReporter = new ExtentHtmlReporter(reportDirectory + "/TestExecutionReport.html");
         // Create an object of Extent Reports
         extent = new ExtentReports();
         extent.attachReporter(htmlReporter);
         extent.setSystemInfo("Host Name", "DevOps Team");
         extent.setSystemInfo("Environment", "Production");
         extent.setSystemInfo("User Name", "Viresh Doshi");
+        extent.setSystemInfo("Selenium Grid URL", System.getProperty("gridURL"));
 
         htmlReporter.config().setDocumentTitle("Test Automation report ");
         // Name of the report
@@ -94,8 +98,70 @@ public class GoogleExampleIT extends DriverBase {
         htmlReporter.config().setTheme(Theme.STANDARD);
 
     }
-
     @Test()
+    public void mobileHomePageTest() throws Exception {
+        // Test name
+        logger = extent.createTest("sanity test to d3digital");
+
+        // Create a new WebDriver instance
+        // Notice that the remainder of the code relies on the interface,
+        // not the implementation.
+        driver = getDriver();
+
+        // And now use this to visit to the mobile site
+        boolean useRemoteWebDriver = Boolean.getBoolean("remoteDriver");
+        if (useRemoteWebDriver) {
+            driver.get("http://10.27.12.243:8080/Digital");
+            System.getProperty("mobileURL", "http://10.27.12.243:8080/Digital");
+        }
+        else {
+             driver.get("https://d3digital01.cbspdev.com/Digital");
+        }
+
+        //dr
+        // Alternatively the same thing can be done like this
+        // driver.navigate().to("http://www.google.com");
+
+        MobileHomePage mobileHomePage = new MobileHomePage();
+
+
+        // Check the title of the page
+        System.out.println("Page title is: " + driver.getTitle());
+
+
+        // Wait for the page to load, timeout after 10 seconds
+        WebDriverWait wait = new WebDriverWait(driver, 10, 1000);
+        wait.until(pageTitleStartsWith("Bank of Ireland-For small steps, for big steps, for life"));
+
+        Thread.sleep(5000);
+
+        System.out.println("lets try and login");
+        mobileHomePage.submitLogin();
+
+        mobileHomePage.enterLogin();
+        Thread.sleep(2000);
+        mobileHomePage.submitLogin();
+
+        Thread.sleep(5000);
+
+        mobileHomePage.enterPin();
+        mobileHomePage.submitPinLogin();
+
+        Thread.sleep(5000);
+
+        mobileHomePage.clickTerms();
+        Thread.sleep(2000);
+        mobileHomePage.clickContinue();
+        Thread.sleep(8000);
+        // Should see: "cheese! - Google Search"
+        System.out.println("Page title is: " + driver.getTitle());
+
+
+
+        Assert.assertEquals(driver.getTitle(),"Bank of Ireland-For small steps, for big steps, for life");
+
+    }
+    //@Test()
     public void googleRandomSearchExample() throws Exception {
         // Test name
         logger = extent.createTest("test for cheese in google search");
@@ -134,7 +200,7 @@ public class GoogleExampleIT extends DriverBase {
 
     }
 
-    @Test
+  //  @Test
     public void googleSearchMilkExample() throws Exception {
         // Test name
         logger = extent.createTest("To assert for milk in google search");

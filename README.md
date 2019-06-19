@@ -20,7 +20,7 @@ ___
 ### How to execute?
 1. Open a terminal prompt
 2. Clone this project `git clone project_url`
-3. type `cd selenium-devops360-framework`
+3. type `cd selenium-framework`
 4. `mvn test verify -Dbrowser=chrome`
 5. Goto target directory and open up the nicely formatted report in a browser `/reports/STMExtentReport.html`
 

@@ -7,6 +7,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.concurrent.TimeUnit;
 
 import static com.devops360.selenium.config.DriverType.FIREFOX;
 import static com.devops360.selenium.config.DriverType.valueOf;
@@ -86,6 +87,13 @@ public class DriverFactory {
         }
 
         if (useRemoteWebDriver) {
+            System.out.println(" Going to use the remoteWebdriver ");
+            System.out.println("Local Operating System: " + operatingSystem);
+            System.out.println("Local Architecture: " + systemArchitecture);
+            System.out.println("Selected Browser: " + selectedDriverType);
+            System.out.println("Connecting to Selenium Grid: " + useRemoteWebDriver);
+            System.out.println(" ");
+
             URL seleniumGridURL = new URL(System.getProperty("gridURL"));
             String desiredBrowserVersion = System.getProperty("desiredBrowserVersion");
             String desiredPlatform = System.getProperty("desiredPlatform");
@@ -100,8 +108,11 @@ public class DriverFactory {
 
             desiredCapabilities.setBrowserName(selectedDriverType.toString());
             driver = new RemoteWebDriver(seleniumGridURL, desiredCapabilities);
+            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS) ;
+
         } else {
             driver = driverType.getWebDriverObject(desiredCapabilities);
+            driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS) ;
         }
     }
 }
