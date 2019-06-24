@@ -4,6 +4,7 @@ import com.devops360.selenium.DriverBase;
 import com.lazerycode.selenium.util.Query;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 import static com.lazerycode.selenium.util.AssignDriver.initQueryObjects;
 
@@ -19,6 +20,7 @@ public class MobileHomePage {
     private Query pinLoginButton = new Query().defaultLocator(By.id("C2__Login-LoginPinPage-Login"));
     private Query termsRow = new Query().defaultLocator(By.id("C2__QUE_5C9476C369D3E12B401113_0"));
     private Query termsContinueButton = new Query().defaultLocator(By.id("C2__Login-TermsAndCondition-Continue"));
+    private RemoteWebDriver driver;
 
     public MobileHomePage() throws Exception {
         initQueryObjects(this, DriverBase.getDriver());
@@ -26,7 +28,6 @@ public class MobileHomePage {
 
     public void enterLogin() {
 
-        this.
         userId.findWebElement().clear();
         userId.findWebElement().sendKeys("111111");
 

@@ -1,4 +1,4 @@
-# Selenium-Maven-TestNG-Extent-PageObject Franmework
+# Selenium-Maven-TestNG-Extent-PageObject Framework
 
 ### Credits:
 This project has been inspired by https://github.com/Ardesco/Selenium-Maven-Template

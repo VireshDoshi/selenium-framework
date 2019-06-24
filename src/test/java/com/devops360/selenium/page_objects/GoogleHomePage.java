@@ -1,12 +1,13 @@
 package com.devops360.selenium.page_objects;
 
 import com.devops360.selenium.DriverBase;
+
+import static com.lazerycode.selenium.util.AssignDriver.initQueryObjects;
 import com.lazerycode.selenium.util.Query;
 import org.openqa.selenium.By;
 
-import static com.lazerycode.selenium.util.AssignDriver.initQueryObjects;
 
-public class GoogleHomePage {
+public class GoogleHomePage extends DriverBase {
 
     private Query searchBar = new Query().defaultLocator(By.name("q"));
     private Query googleSearch = new Query().defaultLocator(By.name("btnK"));

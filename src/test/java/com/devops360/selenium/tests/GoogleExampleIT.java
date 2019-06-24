@@ -17,10 +17,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.ITestResult;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 
@@ -161,8 +158,8 @@ public class GoogleExampleIT extends DriverBase {
         Assert.assertEquals(driver.getTitle(),"Bank of Ireland-For small steps, for big steps, for life");
 
     }
-    //@Test()
-    public void googleRandomSearchExample() throws Exception {
+    @Test(dataProvider = "data-provider")
+    public void googleRandomSearchExample(String inputdata) throws Exception {
         // Test name
         logger = extent.createTest("test for cheese in google search");
 
@@ -178,26 +175,29 @@ public class GoogleExampleIT extends DriverBase {
 
         GoogleHomePage googleHomePage = new GoogleHomePage();
 
-        // Check the title of the page
-        System.out.println("Page title is: " + driver.getTitle());
+        // Check the title of the pageSystem.out.println("Page title is: " + driver.getTitle());
 
-        String randomSearch = getRandomSearchString();
 
-        System.out.println("random search entry = " + randomSearch );
+        System.out.println("random search entry = " + inputdata );
 
-        googleHomePage.enterSearchTerm((randomSearch))
+        googleHomePage.enterSearchTerm((inputdata))
                 .submitSearch();
 
         // Google's search is rendered dynamically with JavaScript.
         // Wait for the page to load, timeout after 10 seconds
         WebDriverWait wait = new WebDriverWait(driver, 10, 100);
-        wait.until(pageTitleStartsWith(randomSearch));
+        wait.until(pageTitleStartsWith(inputdata));
 
         // Should see: "cheese! - Google Search"
         System.out.println("Page title is: " + driver.getTitle());
 
         Assert.assertEquals(driver.getTitle(),"Cheese - Google Search");
 
+    }
+
+    @DataProvider(name = "data-provider")
+    public Object[][] dataProviderMethod() {
+        return new Object[][]{{"tony blair"}, {"boris johnson"}};
     }
 
   //  @Test
@@ -208,7 +208,6 @@ public class GoogleExampleIT extends DriverBase {
         // Create a new WebDriver instance
         // Notice that the remainder of the code relies on the interface,
         // not the implementation.
-        driver = getDriver();
 
         // And now use this to visit Google
         driver.get("http://www.google.com");
